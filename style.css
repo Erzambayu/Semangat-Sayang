@@ -110,15 +110,16 @@ section {
 }
 
 .quote-btn {
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: all 0.3s ease;
+    background-color: #4ecdc4 !important; /* Gunakan nilai hex langsung daripada variabel */
+    color: white !important;
+    border: none !important;
+    padding: 8px 15px !important;
+    border-radius: 20px !important;
+    font-size: 0.9rem !important;
+    cursor: pointer !important;
+    margin-top: 10px !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
 }
 
 .quote-btn:hover {
@@ -141,14 +142,15 @@ section {
 }
 
 .notification-btn {
-    background-color: #e0e0e0;
-    color: var(--dark-color);
-    border: none;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    background-color: #e0e0e0 !important;
+    color: #2d3436 !important; /* Gunakan nilai hex langsung daripada variabel */
+    border: none !important;
+    padding: 6px 12px !important;
+    border-radius: 15px !important;
+    font-size: 0.8rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
 }
 
 .notification-btn:hover {
@@ -156,8 +158,8 @@ section {
 }
 
 .notification-btn.active {
-    background-color: var(--secondary-color);
-    color: white;
+    background-color: #4ecdc4 !important; /* Gunakan nilai hex langsung daripada variabel */
+    color: white !important;
 }
 
 .notification-btn:disabled {
@@ -266,18 +268,18 @@ section {
 }
 
 .add-goal button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    background-color: #ff6b6b !important; /* Gunakan nilai hex langsung daripada variabel */
+    color: white !important;
+    border: none !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    font-size: 1.2rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
 }
 
 .add-goal button:hover {
