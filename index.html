@@ -18,10 +18,14 @@
 
         <section class="motivation-card">
             <h2>Hari Ini</h2>
-            <div class="date-display" id="current-date">19 April 2025</div>
-            <div class="quote">
-                <p>"Setiap langkah kecil yang kamu ambil hari ini adalah kemajuan besar untuk masa depanmu."</p>
+            <div class="time-container">
+                <div class="date-display" id="current-date">19 April 2025</div>
+                <div class="clock-display" id="current-time">00:00</div>
             </div>
+            <div class="quote" id="quote-container">
+                <p id="quote-text">"Setiap langkah kecil yang kamu ambil hari ini adalah kemajuan besar untuk masa depanmu."</p>
+            </div>
+            <button id="new-quote-btn" class="quote-btn">Quote Baru</button>
         </section>
 
         <section class="progress-section">
@@ -31,6 +35,10 @@
                     <div class="progress" id="weekly-progress"></div>
                 </div>
                 <div class="progress-text">65% Tercapai</div>
+            </div>
+            <div class="reset-info">
+                <p><small>Target akan otomatis direset setiap hari Minggu</small></p>
+                <button id="enable-notifications" class="notification-btn">Aktifkan Notifikasi</button>
             </div>
         </section>
 
@@ -73,17 +81,70 @@
     </div>
 
     <script>
-        // Display current date
+        // Motivational quotes array
+        const quotes = [
+            "Setiap langkah kecil yang kamu ambil hari ini adalah kemajuan besar untuk masa depanmu.",
+            "Keberhasilan adalah hasil dari kesempurnaan, kerja keras, belajar dari kegagalan, loyalitas, dan ketekunan.",
+            "Cintamu adalah sumber kekuatanku untuk terus maju dan berkembang setiap hari.",
+            "Jangan pernah menyerah pada mimpimu, karena aku tidak akan pernah menyerah padamu.",
+            "Kamu lebih kuat dari yang kamu pikirkan, lebih berani dari yang kamu yakini, dan lebih dicintai dari yang kamu rasakan.",
+            "Ketika kamu merasa ingin menyerah, ingatlah alasan mengapa kamu bertahan sejauh ini.",
+            "Kegagalan adalah kesempatan untuk memulai lagi dengan lebih cerdas.",
+            "Keberhasilan bukan tentang seberapa tinggi kamu naik, tapi seberapa jauh kamu bangkit setelah jatuh.",
+            "Cinta kita memberi kekuatan untuk menghadapi tantangan apa pun yang menghadang.",
+            "Bersama-sama, kita bisa melewati badai terhebat sekalipun.",
+            "Percayalah pada dirimu sendiri, seperti aku selalu percaya padamu.",
+            "Setiap hari bersamamu adalah motivasi untuk menjadi versi terbaik dari diriku.",
+            "Jangan bandingkan perjalananmu dengan orang lain. Setiap orang memiliki waktunya masing-masing.",
+            "Kesuksesan tidak datang dari apa yang kamu lakukan sesekali, tapi dari apa yang kamu lakukan secara konsisten.",
+            "Cintaku padamu tidak pernah berkurang, bahkan ketika kamu merasa dunia berpaling darimu."
+        ];
+
+        // Display current date and time
         const dateElement = document.getElementById('current-date');
+        const timeElement = document.getElementById('current-time');
         const today = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         dateElement.textContent = today.toLocaleDateString('id-ID', options);
+        
+        // Update time every second
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes}`;
+        }
+        
+        updateTime();
+        setInterval(updateTime, 60000); // Update every minute
+
+        // Random quote functionality
+        const quoteText = document.getElementById('quote-text');
+        const newQuoteBtn = document.getElementById('new-quote-btn');
+        
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            return quotes[randomIndex];
+        }
+        
+        function displayRandomQuote() {
+            quoteText.textContent = `"${getRandomQuote()}"`;
+        }
+        
+        newQuoteBtn.addEventListener('click', displayRandomQuote);
+        
+        // Display a random quote on load
+        displayRandomQuote();
 
         // Add new goal functionality
         const addGoalBtn = document.getElementById('add-goal-btn');
         const newGoalInput = document.getElementById('new-goal');
         const goalsList = document.querySelector('.goals-list');
         const addGoalItem = document.querySelector('.add-goal');
+        
+        // Weekly reset check and notifications setup
+        checkWeeklyReset();
+        setupNotifications();
         
         // Load saved goals from localStorage
         loadGoals();
@@ -110,6 +171,11 @@
                 newGoalInput.value = '';
                 updateProgress();
                 saveGoals();
+                
+                // Schedule notification for this task
+                if (Notification.permission === 'granted') {
+                    scheduleNotification(goalText);
+                }
             }
         }
 
@@ -140,7 +206,7 @@
             document.querySelector('.progress-text').textContent = `${Math.round(progressPercent)}% Tercapai`;
         }
         
-        // Save goals to localStorage
+        // Save goals to localStorage with timestamp
         function saveGoals() {
             const goals = [];
             document.querySelectorAll('.goal-item:not(.add-goal)').forEach(item => {
@@ -153,7 +219,14 @@
                     });
                 }
             });
-            localStorage.setItem('motivationGoals', JSON.stringify(goals));
+            
+            const goalsData = {
+                goals: goals,
+                lastUpdated: new Date().getTime(),
+                lastResetWeek: getWeekNumber(new Date())
+            };
+            
+            localStorage.setItem('motivationGoals', JSON.stringify(goalsData));
         }
         
         // Load goals from localStorage
@@ -161,21 +234,120 @@
             // Clear default goals
             document.querySelectorAll('.goal-item:not(.add-goal)').forEach(item => item.remove());
             
-            const savedGoals = localStorage.getItem('motivationGoals');
-            if (savedGoals) {
-                const goals = JSON.parse(savedGoals);
-                goals.forEach((goal, index) => {
-                    const newGoal = document.createElement('div');
-                    newGoal.className = 'goal-item';
-                    newGoal.innerHTML = `
-                        <input type="checkbox" id="goal${index + 1}" ${goal.completed ? 'checked' : ''}>
-                        <label for="goal${index + 1}">${goal.text}</label>
-                        <button class="delete-btn" aria-label="Hapus target">×</button>
-                    `;
-                    goalsList.insertBefore(newGoal, addGoalItem);
-                });
-                updateProgress();
+            const savedGoalsData = localStorage.getItem('motivationGoals');
+            if (savedGoalsData) {
+                const data = JSON.parse(savedGoalsData);
+                if (data.goals && Array.isArray(data.goals)) {
+                    data.goals.forEach((goal, index) => {
+                        const newGoal = document.createElement('div');
+                        newGoal.className = 'goal-item';
+                        newGoal.innerHTML = `
+                            <input type="checkbox" id="goal${index + 1}" ${goal.completed ? 'checked' : ''}>
+                            <label for="goal${index + 1}">${goal.text}</label>
+                            <button class="delete-btn" aria-label="Hapus target">×</button>
+                        `;
+                        goalsList.insertBefore(newGoal, addGoalItem);
+                    });
+                    updateProgress();
+                }
             }
+        }
+        
+        // Get the week number of a date
+        function getWeekNumber(date) {
+            const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+            const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+            return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+        }
+        
+        // Check if we need to reset goals for a new week
+        function checkWeeklyReset() {
+            const today = new Date();
+            const currentDay = today.getDay(); // 0 is Sunday
+            const currentWeek = getWeekNumber(today);
+            
+            const savedGoalsData = localStorage.getItem('motivationGoals');
+            if (savedGoalsData) {
+                const data = JSON.parse(savedGoalsData);
+                
+                // Reset on Sunday or if it's a new week
+                if (currentDay === 0 || (data.lastResetWeek && data.lastResetWeek < currentWeek)) {
+                    // Reset all goals
+                    const resetData = {
+                        goals: [],
+                        lastUpdated: new Date().getTime(),
+                        lastResetWeek: currentWeek
+                    };
+                    
+                    localStorage.setItem('motivationGoals', JSON.stringify(resetData));
+                    console.log('Weekly goals reset performed');
+                    
+                    // Show reset notification if permissions granted
+                    if (Notification.permission === 'granted') {
+                        new Notification('Target Mingguan Direset', {
+                            body: 'Target minggu lalu telah direset. Waktunya membuat target baru untuk minggu ini!',
+                            icon: 'https://cdn-icons-png.flaticon.com/512/6357/6357059.png'
+                        });
+                    }
+                }
+            }
+        }
+        
+        // Setup browser notifications
+        function setupNotifications() {
+            const notificationBtn = document.getElementById('enable-notifications');
+            
+            // Check if browser supports notifications
+            if (!('Notification' in window)) {
+                notificationBtn.textContent = 'Notifikasi tidak didukung';
+                notificationBtn.disabled = true;
+                return;
+            }
+            
+            // Update button text based on current permission
+            if (Notification.permission === 'granted') {
+                notificationBtn.textContent = 'Notifikasi Aktif';
+                notificationBtn.classList.add('active');
+            } else if (Notification.permission === 'denied') {
+                notificationBtn.textContent = 'Notifikasi Diblokir';
+                notificationBtn.disabled = true;
+            }
+            
+            // Add click event to request permission
+            notificationBtn.addEventListener('click', function() {
+                if (Notification.permission !== 'granted') {
+                    Notification.requestPermission().then(function(permission) {
+                        if (permission === 'granted') {
+                            notificationBtn.textContent = 'Notifikasi Aktif';
+                            notificationBtn.classList.add('active');
+                            
+                            // Send welcome notification
+                            new Notification('Notifikasi Diaktifkan', {
+                                body: 'Kamu akan menerima pengingat untuk target-targetmu!',
+                                icon: 'https://cdn-icons-png.flaticon.com/512/6357/6357059.png'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Schedule a notification for a task
+        function scheduleNotification(taskText) {
+            // Schedule a reminder in 2 hours
+            setTimeout(function() {
+                // Check if the task is still in the list and not completed
+                const taskExists = Array.from(document.querySelectorAll('.goal-item:not(.add-goal) label')).some(label => 
+                    label.textContent === taskText && !label.previousElementSibling.checked
+                );
+                
+                if (taskExists) {
+                    new Notification('Pengingat Target', {
+                        body: `Jangan lupa untuk: ${taskText}`,
+                        icon: 'https://cdn-icons-png.flaticon.com/512/6357/6357059.png'
+                    });
+                }
+            }, 2 * 60 * 60 * 1000); // 2 hours in milliseconds
         }
     </script>
 </body>
