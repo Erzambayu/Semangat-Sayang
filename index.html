@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semangat Sayang! 💖</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Semangat Sayang! 💖</h1>
+            <p class="subtitle">Kamu pasti bisa mencapai targetmu!</p>
+        </header>
+
+        <section class="motivation-card">
+            <h2>Hari Ini</h2>
+            <div class="date-display" id="current-date">19 April 2025</div>
+            <div class="quote">
+                <p>"Setiap langkah kecil yang kamu ambil hari ini adalah kemajuan besar untuk masa depanmu."</p>
+            </div>
+        </section>
+
+        <section class="progress-section">
+            <h2>Target Mingguan</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="weekly-progress"></div>
+                </div>
+                <div class="progress-text">65% Tercapai</div>
+            </div>
+        </section>
+
+        <section class="goals-section">
+            <h2>Targetmu</h2>
+            <div class="goals-list">
+                <div class="goal-item">
+                    <input type="checkbox" id="goal1">
+                    <label for="goal1">Target 1</label>
+                    <button class="delete-btn" aria-label="Hapus target">×</button>
+                </div>
+                <div class="goal-item">
+                    <input type="checkbox" id="goal2">
+                    <label for="goal2">Target 2</label>
+                    <button class="delete-btn" aria-label="Hapus target">×</button>
+                </div>
+                <div class="goal-item">
+                    <input type="checkbox" id="goal3">
+                    <label for="goal3">Target 3</label>
+                    <button class="delete-btn" aria-label="Hapus target">×</button>
+                </div>
+                <div class="goal-item add-goal">
+                    <input type="text" id="new-goal" placeholder="Tambah target baru...">
+                    <button id="add-goal-btn">+</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="message-section">
+            <h2>Pesan Untukmu</h2>
+            <div class="message-card">
+                <p>Sayang, aku selalu mendukungmu dalam setiap langkahmu. Aku bangga dengan usaha dan kerja kerasmu selama ini. Teruslah berjuang, dan ingat bahwa aku selalu ada untukmu. Kamu hebat dan mampu melewati semua tantangan!</p>
+                <p class="signature">- Yang Selalu Mendukungmu ❤️</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Dibuat dengan ❤️ untukmu</p>
+        </footer>
+    </div>
+
+    <script>
+        // Display current date
+        const dateElement = document.getElementById('current-date');
+        const today = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = today.toLocaleDateString('id-ID', options);
+
+        // Add new goal functionality
+        const addGoalBtn = document.getElementById('add-goal-btn');
+        const newGoalInput = document.getElementById('new-goal');
+        const goalsList = document.querySelector('.goals-list');
+        const addGoalItem = document.querySelector('.add-goal');
+
+        addGoalBtn.addEventListener('click', addNewGoal);
+        newGoalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addNewGoal();
+            }
+        });
+
+        function addNewGoal() {
+            const goalText = newGoalInput.value.trim();
+            if (goalText) {
+                const goalCount = document.querySelectorAll('.goal-item:not(.add-goal)').length + 1;
+                const newGoal = document.createElement('div');
+                newGoal.className = 'goal-item';
+                newGoal.innerHTML = `
+                    <input type="checkbox" id="goal${goalCount}">
+                    <label for="goal${goalCount}">${goalText}</label>
+                    <button class="delete-btn" aria-label="Hapus target">×</button>
+                `;
+                goalsList.insertBefore(newGoal, addGoalItem);
+                newGoalInput.value = '';
+                updateProgress();
+            }
+        }
+
+        // Update progress bar when goals are checked
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'checkbox') {
+                updateProgress();
+            }
+        });
+
+        // Delete goal functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const goalItem = e.target.closest('.goal-item');
+                goalItem.remove();
+                updateProgress();
+            }
+        });
+
+        function updateProgress() {
+            const totalGoals = document.querySelectorAll('.goal-item:not(.add-goal)').length;
+            const completedGoals = document.querySelectorAll('.goal-item:not(.add-goal) input:checked').length;
+            const progressPercent = totalGoals > 0 ? (completedGoals / totalGoals) * 100 : 0;
+            
+            document.getElementById('weekly-progress').style.width = `${progressPercent}%`;
+            document.querySelector('.progress-text').textContent = `${Math.round(progressPercent)}% Tercapai`;
+        }
+    </script>
+</body>
+</html>
