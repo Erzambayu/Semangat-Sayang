@@ -84,6 +84,9 @@
         const newGoalInput = document.getElementById('new-goal');
         const goalsList = document.querySelector('.goals-list');
         const addGoalItem = document.querySelector('.add-goal');
+        
+        // Load saved goals from localStorage
+        loadGoals();
 
         addGoalBtn.addEventListener('click', addNewGoal);
         newGoalInput.addEventListener('keypress', function(e) {
@@ -106,6 +109,7 @@
                 goalsList.insertBefore(newGoal, addGoalItem);
                 newGoalInput.value = '';
                 updateProgress();
+                saveGoals();
             }
         }
 
@@ -113,6 +117,7 @@
         document.addEventListener('change', function(e) {
             if (e.target.type === 'checkbox') {
                 updateProgress();
+                saveGoals();
             }
         });
 
@@ -122,6 +127,7 @@
                 const goalItem = e.target.closest('.goal-item');
                 goalItem.remove();
                 updateProgress();
+                saveGoals();
             }
         });
 
@@ -132,6 +138,44 @@
             
             document.getElementById('weekly-progress').style.width = `${progressPercent}%`;
             document.querySelector('.progress-text').textContent = `${Math.round(progressPercent)}% Tercapai`;
+        }
+        
+        // Save goals to localStorage
+        function saveGoals() {
+            const goals = [];
+            document.querySelectorAll('.goal-item:not(.add-goal)').forEach(item => {
+                const label = item.querySelector('label');
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                if (label && checkbox) {
+                    goals.push({
+                        text: label.textContent,
+                        completed: checkbox.checked
+                    });
+                }
+            });
+            localStorage.setItem('motivationGoals', JSON.stringify(goals));
+        }
+        
+        // Load goals from localStorage
+        function loadGoals() {
+            // Clear default goals
+            document.querySelectorAll('.goal-item:not(.add-goal)').forEach(item => item.remove());
+            
+            const savedGoals = localStorage.getItem('motivationGoals');
+            if (savedGoals) {
+                const goals = JSON.parse(savedGoals);
+                goals.forEach((goal, index) => {
+                    const newGoal = document.createElement('div');
+                    newGoal.className = 'goal-item';
+                    newGoal.innerHTML = `
+                        <input type="checkbox" id="goal${index + 1}" ${goal.completed ? 'checked' : ''}>
+                        <label for="goal${index + 1}">${goal.text}</label>
+                        <button class="delete-btn" aria-label="Hapus target">×</button>
+                    `;
+                    goalsList.insertBefore(newGoal, addGoalItem);
+                });
+                updateProgress();
+            }
         }
     </script>
 </body>

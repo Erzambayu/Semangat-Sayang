@@ -10,6 +10,7 @@ Sebuah website sederhana untuk memberikan motivasi dan semangat bagi pasangan da
 - 📊 Progress bar untuk melacak pencapaian
 - 📝 Kemampuan menambahkan target baru
 - 🗑️ Opsi untuk menghapus target yang tidak diperlukan
+- 💾 Penyimpanan lokal untuk menjaga data target tetap ada saat browser di-refresh
 - 💌 Pesan personal
 
 ## Teknologi
@@ -17,6 +18,7 @@ Sebuah website sederhana untuk memberikan motivasi dan semangat bagi pasangan da
 - HTML5
 - CSS3
 - JavaScript (Vanilla)
+- Local Storage API
 - Responsive design (mobile-first approach)
 
 ## Cara Menggunakan
