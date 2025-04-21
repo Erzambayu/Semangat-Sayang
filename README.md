@@ -1,5 +1,7 @@
 # Semangat Sayang 💝
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Sebuah website motivasi personal yang dirancang untuk memberikan semangat dan inspirasi setiap hari. Website ini menggabungkan fitur-fitur interaktif untuk membantu Anda tetap termotivasi dan terorganisir.
 
 ## ✨ Fitur Utama
@@ -65,7 +67,15 @@ Sebuah website motivasi personal yang dirancang untuk memberikan semangat dan in
 
 ## 📝 Lisensi
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE)
+Proyek ini dilisensikan di bawah [MIT License](LICENSE). Lihat file [LICENSE](LICENSE) untuk detail lengkap.
+
+### Ketentuan Lisensi:
+- ✅ Penggunaan komersial
+- ✅ Modifikasi
+- ✅ Distribusi
+- ✅ Penggunaan pribadi
+- ℹ️ Wajib menyertakan copyright notice
+- ℹ️ Tidak ada jaminan/garansi
 
 ## 💕 Dibuat dengan Cinta
 
