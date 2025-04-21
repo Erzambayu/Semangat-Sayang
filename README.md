@@ -1,62 +1,72 @@
-# Semangat Sayang - Motivational Website
+# Semangat Sayang 💝
 
-Sebuah website sederhana untuk memberikan motivasi dan semangat bagi pasangan dalam mencapai target pekerjaan.
+Sebuah website motivasi personal yang dirancang untuk memberikan semangat dan inspirasi setiap hari. Website ini menggabungkan fitur-fitur interaktif untuk membantu Anda tetap termotivasi dan terorganisir.
 
-## Fitur
+## ✨ Fitur Utama
 
-- 📅 Tampilan tanggal otomatis dan jam digital
-- 💬 Kutipan motivasi acak dengan 15+ quotes inspiratif
-- ✅ Daftar target yang dapat dicentang
-- 📊 Progress bar untuk melacak pencapaian
-- 📝 Kemampuan menambahkan target baru
-- 🗑️ Opsi untuk menghapus target yang tidak diperlukan
-- 🔄 Reset otomatis target setiap hari Minggu
-- 🔔 Notifikasi pengingat untuk target yang belum diselesaikan
-- 💾 Penyimpanan lokal untuk menjaga data target tetap ada saat browser di-refresh
-- 💌 Pesan personal
+- **🕒 Tampilan Waktu Real-time**: Menampilkan tanggal dan jam secara real-time dengan desain yang elegan
+- **💌 Pesan Motivasi**: Menampilkan pesan motivasi acak yang dapat diperbarui
+- **🎯 Manajemen Target**: 
+  - Tambah dan hapus target personal
+  - Centang target yang sudah tercapai
+  - Progress bar visual untuk melacak pencapaian
+- **📝 Buku Harian Digital**:
+  - Tulis dan simpan catatan harian
+  - Hapus catatan yang tidak diperlukan
+  - Tampilan tanggal otomatis untuk setiap entri
+- **🌙 Mode Gelap**: Toggle antara mode terang dan gelap untuk kenyamanan membaca
+- **💓 Efek Visual**: Animasi hati yang menghadirkan nuansa romantis
+- **🔔 Notifikasi**: Sistem notifikasi untuk pengingat motivasi
+- **📱 Responsif**: Tampilan yang optimal di berbagai ukuran layar (desktop, tablet, dan mobile)
 
-## Teknologi
+## 🎨 Desain
+
+- Tema warna romantis dengan gradien pink
+- Antarmuka yang bersih dan modern
+- Animasi halus untuk interaksi pengguna
+- Tata letak yang responsif dan adaptif
+
+## 💾 Penyimpanan Data
+
+- Menggunakan localStorage untuk menyimpan:
+  - Target dan progress
+  - Catatan harian
+  - Preferensi tema (mode gelap/terang)
+  - Status notifikasi
+- Data tersimpan secara lokal di perangkat pengguna
+- Reset otomatis setiap minggu untuk target
+
+## 🔧 Teknologi
 
 - HTML5
-- CSS3
-- JavaScript (Vanilla)
-- Local Storage API
+- CSS3 (Flexbox, CSS Variables, Media Queries)
+- JavaScript (ES6+)
 - Web Notifications API
-- Responsive design (mobile-first approach)
 
-## Cara Menggunakan
+## 📱 Kompatibilitas
+
+- Desktop: Chrome, Firefox, Safari, Edge
+- Mobile: Android & iOS browsers
+- Responsive design untuk semua ukuran layar
+
+## 🚀 Cara Menggunakan
+
+1. Buka website
+2. Aktifkan notifikasi (opsional)
+3. Tambahkan target personal Anda
+4. Tulis catatan harian
+5. Toggle mode gelap sesuai preferensi
+
+## 🛠️ Pengembangan Lokal
 
 1. Clone repository ini
-2. Buka file `index.html` di browser
-3. Personalisasi pesan dan target sesuai kebutuhan
-4. Klik "Aktifkan Notifikasi" untuk menerima pengingat
-5. Tambahkan target baru yang ingin dicapai
-6. Dapatkan quote motivasi baru dengan mengklik tombol "Quote Baru"
+2. Buka `index.html` di browser
+3. Tidak diperlukan setup tambahan atau dependencies
 
-## Preview
+## 📝 Lisensi
 
-Website ini didesain dengan pendekatan mobile-first, sehingga tampilan akan optimal pada perangkat mobile maupun desktop.
+Proyek ini dilisensikan di bawah [MIT License](LICENSE)
 
-## Fitur Khusus
+## 💕 Dibuat dengan Cinta
 
-### Reset Mingguan Otomatis
-Target akan otomatis direset setiap hari Minggu, memberikan kesempatan untuk memulai minggu baru dengan target yang segar tanpa perlu menghapus target lama satu per satu.
-
-### Sistem Notifikasi
-Website ini menggunakan Web Notifications API untuk mengirimkan pengingat tentang target yang belum diselesaikan. Notifikasi akan muncul 2 jam setelah target dibuat jika belum ditandai selesai.
-
-### Quote Motivasi Acak
-Terdapat 15+ kutipan motivasi dan cinta yang dapat diganti secara acak dengan mengklik tombol "Quote Baru".
-
-## Kustomisasi
-
-Anda dapat menyesuaikan website ini dengan:
-- Mengubah warna tema di file `style.css` (variabel CSS)
-- Menambah, mencentang, atau menghapus target sesuai kebutuhan
-- Menambahkan quote baru di array `quotes` dalam file `index.html`
-- Menyesuaikan waktu pengingat notifikasi (default: 2 jam)
-- Menyesuaikan pesan personal di bagian "Pesan Untukmu"
-
----
-
-Dibuat dengan ❤️ untuk memberikan semangat dan dukungan
+Dibuat untuk memberikan semangat dan motivasi setiap hari. Semoga website ini dapat membantu Anda tetap termotivasi dan mencapai target-target Anda!
