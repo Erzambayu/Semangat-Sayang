@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semangat Sayang! 💖</title>
+    <base href="./">
+    <link rel="stylesheet" href="style.css">
+    <!-- Library untuk konfetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <!-- Library untuk animasi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Floating Hearts Container -->
+    <div id="hearts-container"></div>
+
+    <div class="container">
+        <header>
+            <h1>Semangat Sayang! 💖</h1>
+            <p class="subtitle">Kamu pasti bisa mencapai targetmu!</p>
+        </header>
+
+        <section class="motivation-card">
+            <h2>Hari Ini</h2>
+            <div class="time-container">
+                <div class="date-display" id="current-date"></div>
+                <div class="clock-display" id="current-time"></div>
+            </div>
+            <div class="quote" id="quote-container">
+                <p id="quote-text">"Jangan bandingkan perjalananmu dengan orang lain. Setiap orang memiliki waktunya masing-masing."</p>
+            </div>
+            <button id="new-quote-btn" class="quote-btn">Quote Baru</button>
+        </section>
+
+        <section class="progress-section">
+            <h2>Target Mingguan</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="weekly-progress"></div>
+                </div>
+                <div class="progress-text">0% Tercapai</div>
+            </div>
+            <div class="reset-info">
+                <p><small>Target akan otomatis direset setiap hari Minggu</small></p>
+                <button id="enable-notifications" class="notification-btn">Aktifkan Notifikasi</button>
+            </div>
+        </section>
+
+        <section class="goals-section">
+            <h2>📝 Targetmu</h2>
+            <div class="goals-list">
+                <div class="add-goal">
+                    <input type="text" id="new-goal" placeholder="Tambah target baru..." autocomplete="off">
+                    <button id="add-goal-btn" aria-label="Tambah target">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="message-section">
+            <h2>Pesan Untukmu</h2>
+            <div class="message-card">
+                <p id="random-message"></p>
+                <p class="signature">- Erzam ❤️</p>
+            </div>
+        </section>
+
+        <section class="holiday-section">
+            <h2>📅 Hari Libur Nasional</h2>
+            <div class="holiday-container">
+                <div class="month-navigation">
+                    <button id="prevMonth" class="month-nav-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h3 id="currentMonth" class="month-title">Januari 2024</h3>
+                    <button id="nextMonth" class="month-nav-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <button id="backToCurrentMonth" class="back-to-current-btn">
+                    <i class="fas fa-calendar-day"></i> Kembali ke Bulan Ini
+                </button>
+                <div class="holiday-list" id="holidayList">
+                    <!-- Holiday items will be added here -->
+                </div>
+                <div id="loadingIndicator" class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    <p>Memuat data hari libur...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="diary-section">
+            <h2>Diary Kita</h2>
+            <div class="diary-container">
+                <div class="diary-form">
+                    <textarea id="diaryEntry" placeholder="Tulis momen berharga hari ini..."></textarea>
+                    <button id="saveDiary" class="diary-btn">
+                        <i class="fas fa-heart"></i> Simpan Momen
+                    </button>
+                </div>
+                <div id="diaryEntries" class="diary-entries">
+                    <!-- Diary entries will be added here -->
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Dibuat dengan ❤️ untukmu</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
